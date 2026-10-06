@@ -326,7 +326,7 @@
       </details>
       <details>
         <summary>Classification is sample-based, not a full-table guarantee</summary>
-        <p>Purview classifies from sampled values, so sensitive values outside the sample may not be detected. Plan on a limited sample (commonly described as up to 128 rows per column, subject to the scanner's applicable sampling limits), not a complete scan of every row. Confirm the exact SQL Server sampling behavior and sample count for the configured source and scan in the proof of concept; do not assume the sample is necessarily the table's first 128 rows. Where broader coverage is required, agree on complementary controls such as full-data SQL checks.</p>
+        <p>Microsoft documents that for tabular data sources such as SQL, Data Map samples the top 128 rows for classification—not every row in the table. Sensitive values outside the sampled rows can therefore be missed. A SQL table has no guaranteed row order unless one is explicitly defined, so “top 128” should not be interpreted as a stable set of physical rows. Validate the scanner's observed behavior for the configured SQL source in the proof of concept. Where broader coverage is required, agree on complementary controls such as full-data SQL checks.</p>
       </details>
       <details>
         <summary>Audit coverage requires more than application logs</summary>
@@ -343,6 +343,7 @@
       <ul class="source-list">
         <li><a href="https://learn.microsoft.com/en-us/purview/register-scan-on-premises-sql-server">Connect to and manage on-premises SQL Server in Purview</a></li>
         <li><a href="https://learn.microsoft.com/en-us/purview/data-map-data-sources">Purview Data Map supported sources and capabilities</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/purview/data-map-data-sources#sampling-data-for-classification">Sampling data for classification (includes the SQL top-128-rows limit)</a></li>
         <li><a href="https://learn.microsoft.com/en-us/purview/data-map-classification-apply-auto">How Data Map applies classifications, including scan sample details</a></li>
         <li><a href="https://learn.microsoft.com/en-us/rest/api/purview/datamapdataplane/entity/get?view=rest-purview-datamapdataplane-2023-09-01">Data Map Atlas API: Get entity</a></li>
         <li><a href="https://learn.microsoft.com/en-us/rest/api/purview/datamapdataplane/entity/get-classifications?view=rest-purview-datamapdataplane-2023-09-01">Data Map Atlas API: Get classifications</a></li>
